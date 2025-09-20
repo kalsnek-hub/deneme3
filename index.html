@@ -3,127 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bake With Ekin</title>
+    <title>The Royal Patisserie - Bake With Ekin</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            emailjs.init("YOUR_PUBLIC_KEY");
+            // Buraya kendi EmailJS anahtarlarınızı eklemelisiniz.
+            emailjs.init("YOUR_PUBLIC_KEY"); 
         })();
     </script>
 </head>
 <body>
 
-    <header>
-        <div class="header-main">
-            <div class="header-container">
-                <a href="#" id="home-link" class="header-btn">Ana Sayfa</a>
-                <a href="#" id="title-link" class="header-title">Bake With Ekin</a>
+    <header class="royal-header">
+        <div class="header-main-royal">
+            <div class="header-crest">
+                <a href="#" id="home-link" class="crest-link"><i class="fas fa-crown"></i></a> 
             </div>
-            <div class="header-right-menu">
-                <a href="#">Hakkımızda</a>
-                <a href="#">Bize Ulaşın</a>
-                <div id="sepet-ikonu" class="sepet-ikon">
+            <div class="header-title-royal">
+                <a href="#" id="title-link" class="site-title">The Royal Patisserie</a>
+                <span class="site-tagline">Bake With Ekin</span>
+            </div>
+            <div class="header-right-menu-royal">
+                <a href="#" class="noble-link">Our Legacy</a>
+                <a href="#" class="noble-link">Contact Us</a>
+                <div id="sepet-ikonu" class="basket-icon">
                     <i class="fas fa-shopping-basket"></i>
-                    <span id="sepet-sayaci" class="sepet-sayac">0</span>
+                    <span id="sepet-sayaci" class="basket-counter">0</span>
                 </div>
             </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#" data-kategori="tatlilar">Tatlılar</a></li>
-                <li><a href="#" data-kategori="tuzlular">Tuzlular</a></li>
-                <li><a href="#" data-kategori="kurabiyeler">Kurabiyeler</a></li>
-                <li><a href="#" data-kategori="atistirmaliklar">Atıştırmalıklar</a></li>
-                <li><a href="#" data-kategori="fit-tarifler">Fit Tarifler</a></li>
+        <nav class="royal-navigation">
+            <ul class="nav-menu">
+                <li><a href="#" data-kategori="tatlilar" class="nav-item">Sweets & Delights</a></li>
+                <li><a href="#" data-kategori="tuzlular" class="nav-item">Savory Feasts</a></li>
+                <li><a href="#" data-kategori="kurabiyeler" class="nav-item">Biscuits & Cookies</a></li>
+                <li><a href="#" data-kategori="atistirmaliklar" class="nav-item">Royal Snacks</a></li>
+                <li><a href="#" data-kategori="fit-tarifler" class="nav-item">Noble Recipes</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <div class="slideshow-grid active">
-            <div id="slideshow-1" class="slideshow"></div>
-            <div id="slideshow-2" class="slideshow"></div>
-            <div id="slideshow-3" class="slideshow"></div>
+    <main class="royal-main-content">
+        <div class="slideshow-grid active royal-gallery">
+            <div id="slideshow-1" class="slideshow royal-frame"></div>
+            <div id="slideshow-2" class="slideshow royal-frame"></div>
+            <div id="slideshow-3" class="slideshow royal-frame"></div>
         </div>
 
-        <section id="urun-listeleme-alani">
-            <h2></h2>
-            <div id="urun-listesi-container" class="urun-listesi"></div>
+        <section id="urun-listeleme-alani" class="product-showcase">
+            <h2 class="section-title"></h2>
+            <div id="urun-listesi-container" class="product-grid"></div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Bake With Ekin. Tüm hakları saklıdır.</p>
+    <footer class="royal-footer">
+        <p>&copy; 2024 The Royal Patisserie. By Ekin. All Rights Reserved. God Save the Queen.</p>
     </footer>
 
-    <div id="urun-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3 id="urun-modal-adi"></h3>
+    <div id="urun-modal" class="modal royal-modal">
+        <div class="modal-content royal-modal-content">
+            <span class="close-btn royal-close-btn">&times;</span>
+            <h3 id="urun-modal-adi" class="modal-title"></h3>
             <div class="modal-tabs">
-                <button class="tab-btn active" data-tab="adet">Adet</button>
-                <button class="tab-btn" data-tab="kilo">Kilo</button>
+                <button class="tab-btn active royal-btn" data-tab="adet">Quantity</button>
+                <button class="tab-btn royal-btn" data-tab="kilo">Weight</button>
             </div>
             <div id="adet-tab" class="tab-content active">
-                <p>Adet giriniz:</p>
-                <input type="number" id="adet-input" min="1" value="1">
-                <span id="adet-fiyat-span" class="fiyat-bilgisi"></span>
+                <p>Enter Quantity:</p>
+                <input type="number" id="adet-input" min="1" value="1" class="royal-input">
+                <span id="adet-fiyat-span" class="price-info"></span>
             </div>
             <div id="kilo-tab" class="tab-content">
-                <p>Kilo giriniz:</p>
-                <input type="number" id="kilo-input" min="0.1" step="0.1" value="0.5">
-                <span id="kilo-fiyat-span" class="fiyat-bilgisi"></span>
+                <p>Enter Weight (kg):</p>
+                <input type="number" id="kilo-input" min="0.1" step="0.1" value="0.5" class="royal-input">
+                <span id="kilo-fiyat-span" class="price-info"></span>
             </div>
-            <button class="add-to-cart-btn">Sepete Ekle</button>
+            <button class="add-to-cart-btn royal-btn">Add to Basket</button>
         </div>
     </div>
     
-    <div id="sepet-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Sepetim</h2>
-            <ul id="sepet-listesi"></ul>
-            <div id="sepet-ozet">
-                <p>Toplam Ürün: <span id="sepet-toplam-urun">0</span></p>
-                <p>Toplam Tutar: <span id="sepet-toplam-tutar">0.00</span> TL</p>
+    <div id="sepet-modal" class="modal royal-modal">
+        <div class="modal-content royal-modal-content">
+            <span class="close-btn royal-close-btn">&times;</span>
+            <h2 class="modal-title">Your Royal Basket</h2>
+            <ul id="sepet-listesi" class="basket-list"></ul>
+            <div id="sepet-ozet" class="basket-summary">
+                <p>Total Items: <span id="sepet-toplam-urun">0</span></p>
+                <p>Grand Total: <span id="sepet-toplam-tutar">0.00</span> TL</p>
             </div>
-            <div class="sepet-btn-grup">
-                <button id="siparis-tamamla-btn">Siparişi Tamamla</button>
-                <button id="siparis-iptal-btn">Siparişi İptal Et</button>
+            <div class="sepet-btn-grup royal-btn-group">
+                <button id="siparis-tamamla-btn" class="royal-btn primary-btn">Proceed to Checkout</button>
+                <button id="siparis-iptal-btn" class="royal-btn secondary-btn">Discard Basket</button>
             </div>
         </div>
     </div>
 
-    <div id="bilgi-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>İletişim Bilgileri</h2>
-            <form id="siparis-gonder-form">
-                <label for="ad-soyad">Adınız Soyadınız:</label>
-                <input type="text" id="ad-soyad" name="ad_soyad" required>
-                <label for="email">E-posta Adresiniz:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="telefon">Telefon Numaranız:</label>
-                <input type="tel" id="telefon" name="telefon" required>
-                <label for="adres">Teslimat Adresiniz:</label>
-                <textarea id="adres" name="adres" rows="3" required></textarea>
-                <label for="notlar">Sipariş Notları:</label>
-                <textarea id="notlar" name="notlar" rows="3"></textarea>
-                <label for="teslimat">Teslimat Şekli:</label>
-                <select id="teslimat" name="teslimat">
-                    <option value="Adrese Teslim">Adrese Teslim</option>
-                    <option value="Kendim Alacağım">Kendim Alacağım</option>
+    <div id="bilgi-modal" class="modal royal-modal">
+        <div class="modal-content royal-modal-content">
+            <span class="close-btn royal-close-btn">&times;</span>
+            <h2 class="modal-title">Your Noble Details</h2>
+            <form id="siparis-gonder-form" class="royal-form">
+                <label for="ad-soyad" class="royal-label">Your Full Name:</label>
+                <input type="text" id="ad-soyad" name="ad_soyad" required class="royal-input">
+                <label for="email" class="royal-label">Your Email Address:</label>
+                <input type="email" id="email" name="email" required class="royal-input">
+                <label for="telefon" class="royal-label">Your Phone Number:</label>
+                <input type="tel" id="telefon" name="telefon" required class="royal-input">
+                <label for="adres" class="royal-label">Delivery Address:</label>
+                <textarea id="adres" name="adres" rows="3" required class="royal-textarea"></textarea>
+                <label for="notlar" class="royal-label">Special Royal Instructions:</label>
+                <textarea id="notlar" name="notlar" rows="3" class="royal-textarea"></textarea>
+                <label for="teslimat" class="royal-label">Delivery Method:</label>
+                <select id="teslimat" name="teslimat" class="royal-select">
+                    <option value="Adrese Teslim">Noble Courier Service</option>
+                    <option value="Kendim Alacağım">Royal Collection</option>
                 </select>
-                <label for="odeme">Ödeme Şekli:</label>
-                <select id="odeme" name="odeme">
-                    <option value="Kapıda Ödeme">Kapıda Ödeme</option>
-                    <option value="EFT/Havale">EFT/Havale</option>
+                <label for="odeme" class="royal-label">Payment Method:</label>
+                <select id="odeme" name="odeme" class="royal-select">
+                    <option value="Kapıda Ödeme">Payment Upon Delivery</option>
+                    <option value="EFT/Havale">Bank Transfer (EFT/Havale)</option>
                 </select>
                 <input type="hidden" name="siparis_ozet" id="siparis-ozet-field">
-                <button type="submit" id="gonder-btn">Siparişi Onayla ve Gönder</button>
+                <button type="submit" id="gonder-btn" class="royal-btn primary-btn">Confirm Royal Order</button>
             </form>
         </div>
     </div>
