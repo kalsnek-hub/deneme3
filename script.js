@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const urunVerileri = [];
+    // 56 adet örnek ürün oluşturuldu
     for (let i = 1; i <= 56; i++) {
         urunVerileri.push({
             id: i,
-            ad: `Ürün ${i}`,
-            aciklama: `Bu, ${i}. ürünün kısa açıklamasıdır.`,
+            ad: `Royal Delicacy No.${i}`, // Ürün adları döneme uygun
+            aciklama: `A fine selection from Her Majesty's kitchen, crafted with utmost care and a touch of history.`, // Açıklama döneme uygun
             fiyat_adet: 25,
             fiyat_kilo: 50,
             kategori: (i <= 12) ? 'tatlilar' :
@@ -44,11 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Üçlü slayt gösterisi
     function startSlideshow(container) {
+        // Rastgele 10 ürün seç, ürün resimlerinin döneme uygun olduğunu varsayıyoruz.
         const randomImages = [...urunVerileri].sort(() => 0.5 - Math.random()).slice(0, 10);
         container.innerHTML = '';
         randomImages.forEach(urun => {
             const img = document.createElement('img');
-            img.src = `images/${urun.id}.jpg`;
+            img.src = `images/${urun.id}.jpg`; // Resim yolunuzu kontrol edin
             img.alt = urun.ad;
             container.appendChild(img);
         });
@@ -75,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             urunListelemeAlani.style.display = 'none';
-            slideshowGrid.style.display = 'flex';
+            slideshowGrid.style.display = 'flex'; // Slayt gösterisini tekrar göster
         });
     });
 
@@ -84,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const kategori = e.target.dataset.kategori;
-            const baslik = e.target.innerText;
+            const baslik = e.target.innerText; // Menüdeki metni başlık olarak al
             
-            slideshowGrid.style.display = 'none';
-            urunListelemeAlani.style.display = 'block';
+            slideshowGrid.style.display = 'none'; // Slayt gösterisini gizle
+            urunListelemeAlani.style.display = 'block'; // Ürün listeleme alanını göster
 
             urunleriListele(kategori, baslik);
         });
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ürünleri listeleme
     function urunleriListele(kategori, baslik) {
         urunListesiContainer.innerHTML = '';
-        kategoriBaslik.innerText = baslik;
+        kategoriBaslik.innerText = baslik; // Kategori başlığını güncelle
         const filtrelenmisUrunler = urunVerileri.filter(urun => urun.kategori === kategori);
 
         filtrelenmisUrunler.forEach(urun => {
@@ -123,13 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.getElementById('urun-modal-adi').innerText = secilenUrun.ad;
             document.getElementById('adet-input').value = 1;
-            document.getElementById('kilo-input').value = 0.5;
-
+            document.getElementById('kilo-input').value = 0.5; // Varsayılan kilo
+            
+            // Fiyat bilgisi güncellemeleri
             const adetFiyatSpan = document.getElementById('adet-fiyat-span');
             const kiloFiyatSpan = document.getElementById('kilo-fiyat-span');
 
-            adetFiyatSpan.innerText = `${secilenUrun.fiyat_adet} TL`;
-            kiloFiyatSpan.innerText = `${secilenUrun.fiyat_kilo} TL`;
+            adetFiyatSpan.innerText = `${secilenUrun.fiyat_adet.toFixed(2)} TL`;
+            kiloFiyatSpan.innerText = `${secilenUrun.fiyat_kilo.toFixed(2)} TL`;
             
             urunModal.style.display = 'block';
             urunModal.querySelector('.add-to-cart-btn').dataset.urunId = urunId;
@@ -156,23 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (miktar > 0) {
-            if (sepet[urunId] && sepet[urunId].birim === birim) {
-                sepet[urunId].miktar += miktar;
-                sepet[urunId].tutar += fiyat;
-            } else if (sepet[urunId] && sepet[urunId].birim !== birim) {
-                 // Farklı birimde ekleme yapılıyorsa yeni bir ürün gibi ele al
-                 const yeniUrunId = `${urunId}-${birim}`;
-                 sepet[yeniUrunId] = {
-                    id: yeniUrunId,
-                    ad: `${secilenUrun.ad} (${birim})`,
-                    miktar: miktar,
-                    birim: birim,
-                    tutar: fiyat
-                };
-            }
-            else {
-                sepet[urunId] = {
-                    id: urunId,
+            // Sepete aynı ürün ve birimden ekleniyorsa miktar ve tutarı güncelle
+            const sepetUrunAnahtari = `${urunId}-${birim}`; // Benzersiz anahtar
+            if (sepet[sepetUrunAnahtari]) {
+                sepet[sepetUrunAnahtari].miktar += miktar;
+                sepet[sepetUrunAnahtari].tutar += fiyat;
+            } else {
+                // Yeni ürün veya farklı birimde ekleme
+                sepet[sepetUrunAnahtari] = {
+                    id: urunId, // Orijinal ürün ID'si
                     ad: secilenUrun.ad,
                     miktar: miktar,
                     birim: birim,
@@ -183,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sepetiGuncelle();
             urunModal.style.display = 'none';
         } else {
-            alert('Lütfen geçerli bir miktar girin.');
+            alert('A valid quantity must be entered, noble customer!');
         }
     });
 
@@ -194,10 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let toplamTutar = 0;
         let toplamUrunSayisi = 0;
 
-        sepetKeys.forEach(urunId => {
-            const urun = sepet[urunId];
+        sepetKeys.forEach(sepetUrunAnahtari => {
+            const urun = sepet[sepetUrunAnahtari];
             const li = document.createElement('li');
-            li.innerHTML = `${urun.ad} - ${urun.miktar.toFixed(1)} ${urun.birim} (${urun.tutar.toFixed(2)} TL) <button class="sepet-sil-btn" data-id="${urunId}">X</button>`;
+            li.innerHTML = `${urun.ad} - ${urun.miktar.toFixed(1)} ${urun.birim} (${urun.tutar.toFixed(2)} TL) <button class="sepet-sil-btn" data-key="${sepetUrunAnahtari}">X</button>`;
             sepetListesi.appendChild(li);
             toplamTutar += urun.tutar;
             toplamUrunSayisi++;
@@ -216,11 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('sepet', JSON.stringify(sepet));
     }
 
-    // Sepette ürün silme
+    // Sepette ürün silme (event delegation)
     sepetListesi.addEventListener('click', (e) => {
         if (e.target.classList.contains('sepet-sil-btn')) {
-            const urunId = e.target.dataset.id;
-            delete sepet[urunId];
+            const sepetUrunAnahtari = e.target.dataset.key; // Data key kullanılıyor
+            delete sepet[sepetUrunAnahtari];
             sepetiGuncelle();
         }
     });
@@ -232,16 +227,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Siparişi İptal Et
     siparisIptalBtn.addEventListener('click', () => {
-        sepet = {};
+        sepet = {}; // Sepeti sıfırla
         sepetiGuncelle();
         sepetModal.style.display = 'none';
-        alert('Siparişiniz başarıyla iptal edildi.');
+        alert('Your esteemed order has been gracefully discarded.');
     });
 
     // Sipariş Tamamlama Modalını Açma
     siparisTamamlaBtn.addEventListener('click', () => {
         if (Object.keys(sepet).length === 0) {
-            alert("Sepetiniz boş. Lütfen önce ürün ekleyin.");
+            alert("Your Royal Basket is empty. Please add some noble treats before proceeding.");
             return;
         }
         sepetModal.style.display = 'none';
@@ -254,12 +249,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const formObj = Object.fromEntries(new FormData(siparisGonderForm).entries());
 
-        let siparisMetni = "";
-        Object.keys(sepet).forEach(urunId => {
-            const urun = sepet[urunId];
+        let siparisMetni = "Ordered Items:\n";
+        Object.keys(sepet).forEach(sepetUrunAnahtari => {
+            const urun = sepet[sepetUrunAnahtari];
             siparisMetni += `- ${urun.ad} - ${urun.miktar.toFixed(1)} ${urun.birim} (${urun.tutar.toFixed(2)} TL)\n`;
         });
-        siparisMetni += `\nToplam Tutar: ${sepetOzetToplamTutar.innerText} TL`;
+        siparisMetni += `\nGrand Total: ${sepetOzetToplamTutar.innerText} TL`;
         
         const templateParams = {
             ...formObj,
@@ -278,15 +273,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return emailjs.send('YOUR_SERVICE_ID', 'YOUR_CUSTOMER_TEMPLATE_ID', customerTemplateParams);
             })
             .then(() => {
-                alert('Siparişiniz alınmıştır. En kısa sürede sizinle iletişime geçilecektir. Bizi seçtiğiniz için teşekkür ederiz.');
+                alert('Your esteemed order has been received! We shall prepare it with the finest care. A confirmation will be dispatched to you shortly. Thank you for choosing The Royal Patisserie.');
                 bilgiModal.style.display = 'none';
                 siparisGonderForm.reset();
-                sepet = {};
+                sepet = {}; // Sepeti sıfırla
                 sepetiGuncelle();
             })
             .catch((error) => {
-                console.error('Sipariş gönderilirken bir hata oluştu:', error);
-                alert('Sipariş gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+                console.error('An error occurred during the royal order submission:', error);
+                alert('A grave error occurred while submitting your order. Pray, try again!');
             });
     });
 
